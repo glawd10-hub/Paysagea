@@ -24,7 +24,7 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 client = genai.Client(api_key=API_KEY)
 
 BASE_DIR = Path(__file__).resolve().parent
-DB_FILE = BASE_DIR / "plants_database.json"
+DB_FILE = Path(os.path.join(os.path.dirname(__file__), 'plants_database.json'))
 UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
 
