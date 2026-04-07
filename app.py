@@ -77,10 +77,20 @@ GARDEN_STYLES = {
 # ── Fonctions Utilitaires ───────────────────────────────────────
 def load_database():
     try:
-        if not DB_FILE.exists(): return []
-        with open(DB_FILE, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except: return []
+        # On cherche le fichier à la racine de l'app
+        path = os.path.join(os.path.dirname(__file__), 'plants_database.json')
+        if not os.path.exists(path):
+            print(f"⚠️ FICHIER NON TROUVÉ : {path}")
+            return []
+            
+        with open(path, 'r', encoding='utf-8-sig') as f: # Encodage forcé
+            data = json.load(f)
+            print(f"✅ BASE CHARGÉE : {len(data)} plantes")
+            return data
+    except Exception as e:
+        print(f"❌ ERREUR CHARGEMENT DB : {e}")
+        return []
+
 
 def get_plant_image_base64(plant):
     try:
