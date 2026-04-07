@@ -14,7 +14,8 @@ from pathlib import Path
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types as genai_types
 from PIL import Image, ImageFilter, ImageDraw, ImageOps
 import io
 
