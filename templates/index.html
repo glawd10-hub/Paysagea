@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="my AI garden designer - Améliorez votre jardin grâce à l'intelligence artificielle. monjardinIA.fr">
+    <title>🌿 my AI garden designer - monjardinIA.fr</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=1.1">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+</head>
+
+<body>
+
+    <!-- ═══ Header ═══ -->
+    <header class="header">
+        <div class="header-brand">
+            <span class="header-logo">🌿</span>
+            <div>
+                <div class="header-title">my AI garden designer</div>
+                <div class="header-subtitle">Améliorateur de Jardin Intelligent par my AI garden designer</div>
+                <div class="header-domain">monjardinIA.fr</div>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="stat-badge"><span>🌱</span><span><span class="stat-value" id="stats-total">...</span>
+                    plantes</span></div>
+            <div class="stat-badge"><span>🤖</span><span>Gemini AI + Nano Banana Pro</span></div>
+        </div>
+    </header>
+
+    <!-- ═══ Main ═══ -->
+    <main class="main-container">
+
+        <!-- ── Hero / Upload ── -->
+        <section class="hero-section" id="hero-section">
+            <h1 class="hero-title">
+                Transformez votre jardin avec<br>
+                <span class="gradient-text">l'intelligence artificielle</span>
+            </h1>
+            <p class="hero-description">
+                Uploadez une photo de votre jardin. L'IA l'analyse et recommande les meilleures plantes
+                de notre base de données — puis génère un rendu photoréaliste du résultat.
+            </p>
+
+            <div class="upload-zone">
+                <div class="upload-area" id="upload-area">
+                    <span class="upload-icon">📸</span>
+                    <div class="upload-text">Glissez-déposez votre photo de jardin</div>
+                    <div class="upload-subtext">JPG, PNG, WEBP</div>
+                    <button class="upload-btn" type="button"><span>📁</span> Choisir une image</button>
+                    <input type="file" id="file-input" accept="image/*">
+                </div>
+
+                <div class="preview-container" id="preview-container">
+                    <img class="preview-image" id="preview-image" src="" alt="Aperçu">
+                    <div class="preview-overlay">
+                        <span class="preview-badge">📸 Jardin à analyser</span>
+                        <button class="remove-preview" onclick="removePreview()" title="Supprimer">✕</button>
+                    </div>
+                </div>
+
+                <!-- ── Garden Settings ── -->
+                <div class="garden-settings-card" id="garden-settings">
+                    <div class="settings-grid">
+                        <div class="setting-group">
+                            <label class="setting-label">📍 Votre ville ou région</label>
+                            <input type="text" id="user-location" class="setting-input" placeholder="ex: Nantes, Bordeaux, Paris...">
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">🌱 Type de sol (optionnel)</label>
+                            <select id="user-soil" class="setting-select">
+                                <option value="unknown">Inconnu (L'IA estimera)</option>
+                                <option value="argileux">Argileux (Lourd, garde l'eau)</option>
+                                <option value="sableux">Sableux (Léger, draine vite)</option>
+                                <option value="calcaire">Calcaire</option>
+                                <option value="humifère">Humifère (Riche, sombre)</option>
+                            </select>
+                        </div>
+                        <div class="setting-group" style="margin-top: 1rem;">
+                            <label class="setting-label">💰 Budget & Taille</label>
+                            <select id="user-budget" class="setting-select">
+                                <option value="moyen">Standard (Plantes jeunes/moyennes)</option>
+                                <option value="economique">Économique (Graines, godets, boutures)</option>
+                                <option value="premium">Premium (Sujets matures, effet immédiat)</option>
+                            </select>
+                        </div>
+                        <div class="setting-group" style="margin-top: 1rem;">
+                            <label class="setting-label">✂️ Temps d'entretien</label>
+                            <select id="user-maintenance" class="setting-select">
+                                <option value="modere">Modéré (Quelques heures par mois)</option>
+                                <option value="faible">Zéro contrainte (Le moins d'entretien possible)</option>
+                                <option value="passionne">Passionné (J'adore jardiner tous les week-ends)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Garden Style Selector (Moved up) ── -->
+                <div class="garden-settings-card" id="pre-style-section" style="margin-top: 0; display: none; padding-top: 0; background: transparent; border: none; box-shadow: none;">
+                    <div class="style-section-wrapper" style="text-align: left;">
+                        <div class="section-header">
+                            <span class="section-icon">🏡</span>
+                            <h2 class="section-title">Style souhaité (Optionnel)</h2>
+                            <div class="section-line"></div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.85rem;">Sélectionnez le style paysager à appliquer. L'IA adaptera l'analyse et la sélection des plantes à votre choix.</p>
+                        <div id="styles-container" class="styles-scroll-area" style="max-height: 700px; padding-bottom: 20px;">
+                            <p style="color: #6b7280;">Chargement des styles...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analyze-section" id="analyze-section">
+                    <button class="analyze-btn" id="analyze-btn" type="button">
+                        <span>🧠</span> Analyser & Améliorer mon jardin <span>🌿</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Error ── -->
+        <div class="error-message" id="error-message">
+            <span class="error-icon">⚠️</span>
+            <p class="error-text">Une erreur s'est produite.</p>
+            <button class="new-analysis-btn" onclick="newAnalysis()" style="margin-top: 1rem;"><span>🔄</span>
+                Réessayer</button>
+        </div>
+
+        <!-- ═══ Results ═══ -->
+        <section class="results-section" id="results-section">
+            <div class="results-layout">
+                
+                <!-- ── Colonne Principale ── -->
+                <div class="results-content">
+                    <div class="new-analysis-section" style="display: flex; gap: 1rem; align-items: center; justify-content: flex-start;">
+                        <button class="new-analysis-btn" onclick="newAnalysis()"><span>📸</span> Analyser un autre jardin</button>
+                        <button class="new-analysis-btn" onclick="window.print()" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: #10b981;"><span>📥</span> Télécharger le Dossier (PDF)</button>
+                    </div>
+
+                    <!-- ── Analysis (Simplifié) ── -->
+                    <div>
+                        <div class="section-header">
+                            <span class="section-icon">🔍</span>
+                            <h2 class="section-title">Analyse</h2>
+                            <div class="section-line"></div>
+                        </div>
+                        <div class="analysis-card" id="analysis-content"></div>
+                    </div>
+
+                    <!-- ── Recommended Plants ── -->
+                    <div>
+                        <div class="section-header">
+                            <span class="section-icon">🌺</span>
+                            <h2 class="section-title">Plantes recommandées</h2>
+                            <div class="section-line"></div>
+                        </div>
+                        <div class="plants-toolbar">
+                            <span class="plant-count" id="plant-count">0 plantes</span>
+                            <div class="plants-toolbar-actions">
+                                <button class="toolbar-btn-select" onclick="selectAllPlants()">☑️ Tout cocher</button>
+                                <button class="toolbar-btn-select" onclick="deselectAllPlants()">☐ Tout décocher</button>
+                                <button class="toolbar-btn" onclick="restorePlants()"><span>↩️</span> Restaurer</button>
+                                <button class="toolbar-btn toolbar-btn-search" onclick="toggleSearchPanel()"><span>🔍</span>
+                                    Ajouter depuis la base de données</button>
+                            </div>
+                        </div>
+                        <div class="plants-grid" id="plants-grid"></div>
+                    </div>
+
+                    <!-- ── Search/Filter Panel (hidden by default) ── -->
+                    <div class="search-panel" id="search-panel">
+                        <div class="section-header">
+                            <span class="section-icon">🔎</span>
+                            <h2 class="section-title">Rechercher & Ajouter des plantes</h2>
+                            <div class="section-line"></div>
+                            <button class="close-panel-btn" onclick="toggleSearchPanel()">✕</button>
+                        </div>
+                        <div class="search-filters">
+                            <div class="search-input-wrapper">
+                                <span>🔍</span>
+                                <input type="text" id="search-query" placeholder="Nom de la plante..." class="search-input">
+                            </div>
+                            <select id="filter-color" class="search-select">
+                                <option value="">🎨 Toutes les couleurs</option>
+                            </select>
+                            <select id="filter-type" class="search-select">
+                                <option value="">🌱 Tous les types</option>
+                            </select>
+                            <select id="filter-sous-type" class="search-select">
+                                <option value="">📁 Tous les sous-types</option>
+                            </select>
+                            <button class="search-btn" onclick="searchPlants()"><span>🔍</span> Rechercher</button>
+                        </div>
+                        <div class="search-results" id="search-results">
+                            <p class="search-hint">Utilisez les filtres ci-dessus pour trouver des plantes à ajouter.</p>
+                        </div>
+                    </div>
+
+                    <!-- ── Improvement Plan ── -->
+                    <div>
+                        <div class="section-header">
+                            <span class="section-icon">📋</span>
+                            <h2 class="section-title">Plan d'amélioration</h2>
+                            <div class="section-line"></div>
+                        </div>
+                        <div class="plan-card" id="plan-content"></div>
+                    </div>
+                </div>
+
+                <!-- ── Colonne Sidebar (Sticky) ── -->
+                <aside class="results-sidebar">
+                    <div class="sidebar-sticky-content">
+                        
+                        <!-- Garden Style selector was here, moved to pre-analysis phase -->
+
+                        <!-- ── Generate Render ── -->
+                        <div class="render-section-wrapper">
+                            <div class="section-header">
+                                <span class="section-icon">🎨</span>
+                                <h2 class="section-title">Générer le rendu</h2>
+                                <div class="section-line"></div>
+                            </div>
+                            <div class="render-cta">
+                                <p class="render-cta-text" style="font-size: 0.85rem;">
+                                    L'IA va éditer votre photo en ajoutant les plantes sélectionnées
+                                    <strong>sans modifier l'angle ni la structure</strong>.
+                                </p>
+
+                                <!-- User suggestions -->
+                                <div class="user-suggestions-wrapper">
+                                    <label for="user-suggestions" class="suggestions-label">💬 Instructions (optionnel)</label>
+                                    <textarea id="user-suggestions" class="suggestions-textarea"
+                                        placeholder="Ex: Je veux des couleurs chaudes, placer les arbustes au fond..."></textarea>
+                                </div>
+
+                                <button class="generate-render-btn" id="generate-render-btn" onclick="generateRender()">
+                                    <span>✨</span> Générer le résultat <span>🖼️</span>
+                                </button>
+                            </div>
+
+                            <div class="render-loading" id="render-loading">
+                                <div class="loading-spinner" style="width: 40px; height: 40px;"></div>
+                                <span style="font-size: 0.85rem;">Génération en cours... (15-30s)</span>
+                            </div>
+
+                            <div id="render-section" class="render-section">
+                                <div id="render-result"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ═══ Loading Overlay ═══ -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">L'IA analyse votre jardin...</div>
+        <div class="loading-steps">
+            <div class="loading-step active"><span class="loading-step-icon">◉</span><span>Analyse de la photo</span>
+            </div>
+            <div class="loading-step"><span class="loading-step-icon">◉</span><span>Sélection des plantes</span></div>
+            <div class="loading-step"><span class="loading-step-icon">◉</span><span>Génération du plan</span></div>
+            <div class="loading-step"><span class="loading-step-icon">◉</span><span>Finalisation</span></div>
+        </div>
+    </div>
+
+    <!-- ═══ Footer ═══ -->
+    <footer class="footer">
+        <p>🌿 my AI garden designer — monjardinIA.fr | Gemini AI + Nano Banana Pro</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}?v=1.6"></script>
+</body>
+
+</html>
