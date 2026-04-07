@@ -34,7 +34,7 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 if not API_KEY:
     print("⚠️  ATTENTION : Clé API Gemini manquante dans .env")
 
-genai.configure(api_key=API_KEY)
+client = genai.Client(api_key=API_KEY)
 
 # Essayer plusieurs noms de modèle
 MODEL_NAMES = ['gemini-2.5-flash', 'gemini-1.5-flash']
