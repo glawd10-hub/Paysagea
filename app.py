@@ -23,8 +23,9 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 # Initialisation du client unique (le cerveau de l'app)
 client = genai.Client(api_key=API_KEY)
 
+# Au lieu de chercher dans "output", on cherche partout
 BASE_DIR = Path(__file__).resolve().parent
-DB_FILE = Path(os.path.join(os.path.dirname(__file__), 'plants_database.json'))
+DB_FILE = BASE_DIR / "plants_database.json" 
 UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
 
