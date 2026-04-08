@@ -77,25 +77,23 @@ GARDEN_STYLES = {
 
 # ── Fonctions Utilitaires ───────────────────────────────────────
 def load_database():
-    # Liste des endroits où le fichier pourrait se cacher
-    chemins_possibles = [
-        os.path.join(os.path.dirname(__file__), 'plants_database.json'),
-        os.path.join(os.path.dirname(__file__), 'output', 'plants_database.json'),
-        'plants_database.json'
-    ]
+    import os, json
+    path = os.path.join(os.path.dirname(__file__), 'plants_database.json')
     
-    for path in chemins_possibles:
-        if os.path.exists(path):
-            try:
-                with open(path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    print(f"✅ Succès ! Base chargée depuis : {path} ({len(data)} plantes)")
-                    return data
-            except Exception as e:
-                print(f"❌ Erreur lecture {path}: {e}")
-                
-    print("⚠️ Désolé, aucune base de données trouvée !")
-    return []
+    try:
+        # On utilise "latin-1" ou "errors='replace'" pour ignorer les caractères corrompus
+        with open(path, 'r', encoding='utf-8', errors='replace') as f:
+            data = json.load(f)
+            # On vérifie si c'est bien une liste
+            if isinstance(data, list):
+                print(f"DEBUG: ✅ SUCCÈS - {len(data)} plantes chargées.")
+                return data
+            else:
+                print("DEBUG: ❌ ERREUR - Le fichier n'est pas une LISTE JSON.")
+                return []
+    except Exception as e:
+        print(f"DEBUG: ❌ ERREUR FATALE - Impossible de charger le JSON : {str(e)}")
+        return []
 
 
 
