@@ -229,5 +229,18 @@ def uploads(f): return send_from_directory(str(UPLOAD_DIR), f)
 @app.route('/health')
 def health(): return "OK", 200
 
+@app.route('/api/debug-files')
+def debug_files():
+    import os
+    chemin = os.path.dirname(__file__)
+    # Liste de TOUS les fichiers vus par le serveur
+    fichiers = os.listdir(chemin)
+    return jsonify({
+        'dossier_actuel': chemin,
+        'fichiers': fichiers,
+        'db_trouvee': 'plants_database.json' in fichiers
+    })
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get("PORT", 5000)), host='0.0.0.0')
