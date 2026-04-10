@@ -1,6 +1,6 @@
 """
-🌿 Garden AI Enhancer - Version Intégrale & Réaliste
-Contient TOUTES vos fonctionnalités (Recherche, Debug, Analyse) avec le rendu IA boosté.
+🌿 Garden AI Enhancer - Version Corrigée (Stable Render)
+Correction de l'erreur SDK : GenerateContentResponse Parts.
 """
 
 import json, os, random, base64, io
@@ -21,30 +21,28 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-# ── Styles de jardin ──────────────────────────────────────────
 GARDEN_STYLES = {
     "traditionnels": {
         "label": "🏛️ Styles Classiques & Traditionnels",
         "styles": {
-            "francais": {"nom": "Jardin à la française", "keywords": "formal French style, geometric parterre lines, symmetrical topiary"},
-            "anglais": {"nom": "Jardin à l'anglaise", "keywords": "English cottage style, herbaceous mixed borders, romantic soft curves"},
-            "mediterraneen": {"nom": "Jardin Méditerranéen", "keywords": "Mediterranean landscape, cypress profiles, lavender"}
+            "francais": {"nom": "Jardin à la française", "keywords": "formal French style, geometric lines"},
+            "anglais": {"nom": "Jardin à l'anglaise", "keywords": "English cottage style, soft curves"},
+            "mediterraneen": {"nom": "Jardin Méditerranéen", "keywords": "Mediterranean landscape"}
         }
     },
     "expulsifs": {
         "label": "✨ Ambiances & Atmosphères",
         "styles": {
-            "japonais": {"nom": "Jardin Zen / Japonais", "keywords": "Zen Japanese, sculpted maple, mossy textures"},
-            "tropical": {"nom": "Jardin Tropical", "keywords": "tropical jungle aesthetic, oversized foliage"}
+            "japonais": {"nom": "Jardin Zen / Japonais", "keywords": "Zen Japanese"},
+            "tropical": {"nom": "Jardin Tropical", "keywords": "tropical jungle"}
         }
     },
     "modernes": {
         "label": "📐 Design & Modernité",
-        "styles": {"moderne": {"nom": "Design Contemporain", "keywords": "contemporary minimalist design, sharp geometric lines"}}
+        "styles": {"moderne": {"nom": "Design Contemporain", "keywords": "contemporary minimalist design"}}
     }
 }
 
-# ── Fonctions Utilitaires ───────────────────────────────────────
 def load_database():
     path = BASE_DIR / "plants_database.json"
     try:
@@ -66,8 +64,6 @@ def get_plant_image_base64(plant):
             return base64.b64encode(buf.getvalue()).decode('utf-8')
     except: return None
 
-# ── Routes Application ────────────────────────────────────────
-
 @app.route('/')
 def index(): return render_template('index.html')
 
@@ -87,15 +83,12 @@ def analyze():
     if not f: return jsonify({'error': 'No image'}), 400
     path = UPLOAD_DIR / "garden_upload.jpg"
     f.save(str(path))
-    
-    # Analyse IA simplifiée
     try:
         img = ImageOps.exif_transpose(Image.open(str(path)))
         p = "Analyse ce jardin. Réponds UNIQUEMENT en JSON: description, styles_recommandes."
         res = client.models.generate_content(model='gemini-1.5-flash', contents=[p, img])
         ans = json.loads(res.text[res.text.find('{'):res.text.rfind('}')+1])
     except: ans = {"description": "Jardin détecté", "styles_recommandes": ["moderne"]}
-
     db = load_database()
     random.shuffle(db)
     selection = db[:10]
@@ -107,14 +100,12 @@ def generate_render():
     data = request.get_json()
     pnames = data.get('plants', [])
     sid = data.get('garden_style', 'moderne')
-    
     skw = "modern landscape"
     for cat in GARDEN_STYLES.values():
         if sid in cat['styles']:
             skw = cat['styles'][sid]['keywords']
             break
 
-    # LE PROMPT MAGIQUE (RÉALISME MAXIMAL)
     prompt = f"""4K PHOTOREALISTIC LANDSCAPE (REALISTIC SCALE): 
 STRICT CATALOG: ONLY USE: {', '.join(pnames[:10])}
 - SCALE: Use house height as reference. No oversized flowers.
@@ -129,15 +120,19 @@ NEGATIVE: oversized plants, giant flowers, zoom, cropped, hallucination."""
         if img.mode == 'RGBA': img = img.convert('RGB')
         img.thumbnail((1536, 1536), Image.LANCZOS)
         
+        # APPEL IA
         res = client.models.generate_content(model='nano-banana-pro-preview', contents=[prompt, img])
         
-        for pt in res.parts:
-            if pt.inline_data:
-                final_img = Image.open(io.BytesIO(pt.inline_data.data))
-                out_name = f"render_{random.randint(1000,9999)}.jpg"
-                final_img.save(str(UPLOAD_DIR / out_name), quality=95)
-                return jsonify({'render_url': f'/uploads/{out_name}'})
-        return jsonify({'error': 'No image'}), 500
+        # CORRECTIF VERSION SDK : On cherche l'image dans candidates
+        for candidate in res.candidates:
+            for part in candidate.content.parts:
+                if part.inline_data:
+                    final_img = Image.open(io.BytesIO(part.inline_data.data))
+                    out_name = f"render_{random.randint(1000,9999)}.jpg"
+                    final_img.save(str(UPLOAD_DIR / out_name), quality=95)
+                    return jsonify({'render_url': f'/uploads/{out_name}'})
+                    
+        return jsonify({'error': 'No image returned by IA'}), 500
     except Exception as e: return jsonify({'error': str(e)}), 500
 
 @app.route('/api/search-plants')
@@ -153,11 +148,6 @@ def uploads(f): return send_from_directory(str(UPLOAD_DIR), f)
 
 @app.route('/health')
 def health(): return "OK", 200
-
-@app.route('/api/debug-files')
-def debug_files():
-    fichiers = os.listdir(BASE_DIR)
-    return jsonify({'dossier': str(BASE_DIR), 'fichiers': fichiers, 'db': 'plants_database.json' in fichiers})
 
 if __name__ == '__main__':
     app.run(port=int(os.environ.get("PORT", 5000)), host='0.0.0.0')
