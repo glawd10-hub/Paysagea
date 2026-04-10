@@ -1,0 +1,200 @@
+[
+    {
+        "id": "1",
+        "nom": "Citrus aurantium",
+        "image_path": "all_photos/plant_0090_001_citrus_aurantium_c15.png",
+        "type_excel": "Arbre fruitier",
+        "couleur": "Blanc (fleurs) / Orange (fruits)",
+        "ensoleillement": "Soleil",
+        "type_sol": "Drainé / Riche"
+    },
+    {
+        "id": "2",
+        "nom": "Citrus clementina",
+        "image_path": "all_photos/plant_0092_001_citrus_clementina_c1.png",
+        "type_excel": "Arbre fruitier",
+        "couleur": "Blanc (fleurs) / Orange (fruits)",
+        "ensoleillement": "Soleil",
+        "type_sol": "Drainé / Riche"
+    },
+    {
+        "id": "3",
+        "nom": "Dianthus sp. (Rose/Rouge)",
+        "image_path": "all_photos/plant_0127_001_dianthus_sp_rouge_go.png",
+        "type_excel": "Fleur / Vivace",
+        "couleur": "Rouge / Rose",
+        "ensoleillement": "Soleil",
+        "type_sol": "Ordinaire"
+    },
+    {
+        "id": "4",
+        "nom": "Helianthus annuus (Tournesol)",
+        "image_path": "all_photos/plant_0181_001_helianthus_annuus_c0.png",
+        "type_excel": "Fleur / Annuelle",
+        "couleur": "Jaune vif",
+        "ensoleillement": "Plein Soleil",
+        "type_sol": "Riche"
+    },
+    {
+        "id": "5",
+        "nom": "Hibiscus rosa-sinensis",
+        "image_path": "all_photos/plant_0192_001_hibiscus_rosa_sinens.png",
+        "type_excel": "Arbuste",
+        "couleur": "Rouge / Rose",
+        "ensoleillement": "Soleil / Mi-ombre",
+        "type_sol": "Drainé"
+    },
+    {
+        "id": "6",
+        "nom": "Hibiscus syriacus",
+        "image_path": "all_photos/plant_0195_001_hibiscus_syriacus_pi.png",
+        "type_excel": "Arbuste",
+        "couleur": "Mauve / Rose",
+        "ensoleillement": "Soleil",
+        "type_sol": "Ordinaire"
+    },
+    {
+        "id": "7",
+        "nom": "Impatiens x nouvelle-guinée",
+        "image_path": "all_photos/plant_0205_001_impatiens_x_nouvelle.png",
+        "type_excel": "Fleur",
+        "couleur": "Rouge vif / Orange",
+        "ensoleillement": "Ombre / Mi-ombre",
+        "type_sol": "Frais"
+    },
+    {
+        "id": "8",
+        "nom": "Ipomoea batatas",
+        "image_path": "all_photos/plant_0207_001_ipomea_batata_godet.png",
+        "type_excel": "Grimpante / Feuillage",
+        "couleur": "Vert d’eau / Pourpre",
+        "ensoleillement": "Soleil / Mi-ombre",
+        "type_sol": "Frais"
+    },
+    {
+        "id": "9",
+        "nom": "Tagetes patula (Jaune)",
+        "image_path": "all_photos/plant_0381_001_tagetes_patula_jaune.png",
+        "type_excel": "Fleur",
+        "couleur": "Jaune",
+        "ensoleillement": "Soleil",
+        "type_sol": "Ordinaire"
+    },
+    {
+        "id": "10",
+        "nom": "Tagetes patula (Orange)",
+        "image_path": "all_photos/plant_0382_001_tagetes_patula_orang.png",
+        "type_excel": "Fleur",
+        "couleur": "Orange",
+        "ensoleillement": "Soleil",
+        "type_sol": "Ordinaire"
+    },
+    {
+        "id": "11",
+        "nom": "Washingtonia filifera",
+        "image_path": "all_photos/plant_0403_001_washingtonia_filifer.png",
+        "type_excel": "Palmier",
+        "couleur": "Vert",
+        "ensoleillement": "Plein Soleil",
+        "type_sol": "Sableux / Sec"
+    },
+    {
+        "id": "12",
+        "nom": "Brahea armata",
+        "image_path": "all_photos/plant_0538_001_brahea_armata_c10.png",
+        "type_excel": "Palmier",
+        "couleur": "Bleu argenté",
+        "ensoleillement": "Plein Soleil",
+        "type_sol": "Sec / Calcaire"
+    },
+    {
+        "id": "13",
+        "nom": "Ligustrum ionandrum",
+        "image_path": "all_photos/plant_1024_001_ligustrum_ionandrum.png",
+        "type_excel": "Arbuste Topiaire",
+        "couleur": "Vert foncé",
+        "ensoleillement": "Soleil / Mi-ombre",
+        "type_sol": "Ordinaire"
+    },
+    {
+        "id": "14",
+        "nom": "Agapanthus (Gros bouquet)",
+        "image_path": "all_photos/plant_1289_001_1395412191_agapanthu.png",
+        "type_excel": "Vivace",
+        "couleur": "Bleu",
+        "ensoleillement": "Soleil",
+        "type_sol": "Drainé"
+    },
+    {
+        "id": "15",
+        "nom": "Azalea japonica",
+        "image_path": "all_photos/plant_1300_001_azalea_japonica_c03.png",
+        "type_excel": "Arbuste",
+        "couleur": "Rose",
+        "ensoleillement": "Mi-ombre / Ombre",
+        "type_sol": "Acide (Terre de bruyère)"
+    },
+    {
+        "id": "16",
+        "nom": "Tulipa hageri",
+        "image_path": "all_photos/plant_1376_001_tulipe_hageri.png",
+        "type_excel": "Bulbe",
+        "couleur": "Rouge cuivré",
+        "ensoleillement": "Soleil",
+        "type_sol": "Drainé"
+    },
+    {
+        "id": "17",
+        "nom": "Papaver naudicole",
+        "image_path": "all_photos/plant_1397_001_papaver_naudicole_c0.png",
+        "type_excel": "Fleur",
+        "couleur": "Jaune / Orange",
+        "ensoleillement": "Soleil",
+        "type_sol": "Léger"
+    },
+    {
+        "id": "18",
+        "nom": "Phlox dolly (Salmon)",
+        "image_path": "all_photos/plant_1407_001_phlox_dolly_salmon.png",
+        "type_excel": "Vivace",
+        "couleur": "Rose saumon",
+        "ensoleillement": "Soleil / Mi-ombre",
+        "type_sol": "Frais"
+    },
+    {
+        "id": "19",
+        "nom": "Agapanthus alba",
+        "image_path": "all_photos/plant_1473_001_agapanthe_bleue_r000.png",
+        "type_excel": "Vivace",
+        "couleur": "Bleu clair / Blanc",
+        "ensoleillement": "Soleil",
+        "type_sol": "Ordinaire"
+    },
+    {
+        "id": "20",
+        "nom": "Cineraria maritima",
+        "image_path": "all_photos/plant_1477_001_cineraria_maritima_c.png",
+        "type_excel": "Feuillage",
+        "couleur": "Gris argenté",
+        "ensoleillement": "Soleil",
+        "type_sol": "Sec"
+    },
+    {
+        "id": "21",
+        "nom": "Nerium oleander (Pot)",
+        "image_path": "all_photos/plant_2088_001_nerium_en_pot.png",
+        "type_excel": "Arbuste",
+        "couleur": "Rose / Rouge",
+        "ensoleillement": "Plein Soleil",
+        "type_sol": "Drainé"
+    },
+    {
+        "id": "22",
+        "nom": "Lavandula angustifolia",
+        "image_path": "all_photos/plant_3060_001_lavandula_ang_munste.png",
+        "type_excel": "Arbuste / Aromatique",
+        "couleur": "Violet",
+        "ensoleillement": "Soleil",
+        "type_sol": "Sec / Caillouteux"
+    }
+]
